@@ -1,26 +1,42 @@
 import sqlite3
 import os
+import queries
+
 
 class database:
 
     def __init__(self) -> None:
-        path = os.path.dirname(os.path.realpath(__file__))
-        if not os.path.isfile(path+'\\movie.db'):
-            sqlite3.connect('movie.db')
-        self.file = 'movie.db'
+        self.dbfile = 'movies_app.db'
+        if not os.path.isfile(self.dbfile):
+            sqlite3.connect(self.dbfile)
+            self.initialize_db()
+       
 
-    def execute_one(self, query):
-        try:
-            conn = sqlite3.connect(self.file)
-            conn.execute(query)
-            conn.commit()
-            conn.close()
+    def initialize_db(self) -> bool:
+        if database.execute(self, queries.create_table_movies):
             return True
-        except Exception as e:
-            return e
+        else:
+            raise Exception("Failed creating tables, sorry.")
 
-    def get_users(self):
-        pass
-
-    def get_movies(self):
-        pass
+    def execute(self, query):
+        with sqlite3.connect(self.dbfile) as conn:
+                cursor = conn.cursor()
+                try:
+                    cursor.execute(query)
+                except Exception as e:
+                    raise f"Something went wrong:{e}"
+                    return False
+                cursor.close()
+        return True
+    
+    def fetch_all(self, query):
+        with sqlite3.connect(self.dbfile) as conn:
+                cursor = conn.cursor()
+                try:
+                    cursor.execute(query)
+                    result = cursor.fetchall()
+                except Exception as e:
+                    raise f"Something went wrong:{e}"
+                    return False
+                cursor.close()
+        return result

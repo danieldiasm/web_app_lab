@@ -1,5 +1,6 @@
-import os
+import model
+import queries
+dbhandler = model.database()
+print(dbhandler.execute(queries.create_table_movies))
 
-path = os.path.dirname(os.path.realpath(__file__))
-
-print(os.path.isfile(path+'\\app.py'))
+print(dbhandler.fetch("SELECT * FROM sqlite_master WHERE type='table'"))
