@@ -1,9 +1,9 @@
-import database
-import menu
+import model
+
 
 
 if __name__ == '__main__':
-    while (user_input := input(menu.main_menu)) != "4":
+    while (user_input := input(menu.menu_main)) != "4":
         print(user_input)
         if user_input == "1":
             print("You've selected 1")
