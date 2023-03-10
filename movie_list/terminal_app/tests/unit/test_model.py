@@ -2,7 +2,7 @@ from unittest import TestCase
 from unittest.mock import MagicMock
 import os
 
-import terminal_app.model as model
+import model as model
 
 class TestModelMocked(TestCase):
 

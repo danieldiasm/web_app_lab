@@ -1,7 +1,7 @@
 import sqlite3
 import functools
 import os
-import terminal_app.queries as queries
+import queries
 
 
 class database:
