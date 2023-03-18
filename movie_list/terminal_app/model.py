@@ -4,12 +4,11 @@ import os
 import queries
 
 
-class database:
+class Database:
 
     def __init__(self) -> None:
         self.dbfile = 'movies_app.db'
         if not os.path.isfile(self.dbfile):
-            sqlite3.connect(self.dbfile)
             self.initialize_db()
 
     def with_db(func):
@@ -23,10 +22,11 @@ class database:
         return dbconn_wrapper
 
 
-    def initialize_db(self) -> bool:
+    def initialize_db(self) -> None:
         try:
             self.exec_only(queries.create_table_movies)
             # Add here other actions needed to init the db
+            return None
         except Exception as e:
             return e
 
