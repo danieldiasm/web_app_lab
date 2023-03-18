@@ -35,7 +35,7 @@ class TestModelInit(TestCase):
         # Assert if initialize db was called with query
         self.MockClass1.assert_called_with(queries.create_table_movies)
 
-class TestExecMethods(self):
+class TestExecMethods(TestCase):
 
     def test_exec_only(self):
         pass
